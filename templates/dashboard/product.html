@@ -1,0 +1,57 @@
+{% extends 'partials/base.html' %}
+{% block title %}Products Page{% endblock %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+{% include 'partials/count-info.html' %}
+<div class="row my-4 m-3">
+    <div class="col-md-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="card card-body mb-5 " style="background-color:#D0e1f9;">
+            <h5>Add New Products</h5>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input class="btn btn-block text-white"style="background-color:#4d648d;" type="submit" value="Add">
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8 ">
+        <div class="table-responsive">
+            <table class="table" style="border: 1px solid #4d648d;">
+                <thead class=" text-white"style="background-color: #4d648d;">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Activity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.category }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>
+                            <a class="btn btn-sm mr-2"
+                                href="{% url 'dashboard-product-update' item.id %}" style="background-color:#D0e1f9;">Edit</a>
+                            <a class="btn text-white btn-sm ml-2"
+                                href="{% url 'dashboard-product-delete' item.id %}" style="background-color:#4d648d;">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'partials/base.html' %}
+{% block title %}Satff Page{% endblock %}
+
+
+{% block content %}
+{% include 'partials/count-info.html' %}
+<div class="row m-2 mt-4">
+    <div class="col-md-4 "></div>
+    <div class="col-md-8">
+        <table class="table bg-white" style="border: 1px solid #4d648d;">
+            <thead class=" text-white" style="background-color: #4d648d;">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for worker in workers %}
+                <tr>
+                    <th scope="row"><a class="btn btn-sm"
+                            href="{% url 'dashboard-staff-detail' worker.id %}" style="background-color:#D0e1f9;">View</a></th>
+                    <td>{{ worker.username }}</td>
+                    <td>{{ worker.profile.phone }}</td>
+                    <td>{{ worker.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
